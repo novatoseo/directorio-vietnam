@@ -2474,3 +2474,14 @@ a.skip-link:focus { top: 8px; }
   color: rgba(255,255,255,.5);
   font-size: .78rem;
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   FIX — SEO section (quitar opacity:0 que dependía de JS observer)
+   ══════════════════════════════════════════════════════════════════════ */
+.seo-inner {
+  opacity: 1 !important;
+  transform: none !important;
+  display: block;        /* override del grid 1fr 1fr que no usamos aquí */
+  grid-template-columns: none;
+  gap: 0;
+}
