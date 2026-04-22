@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /*.json$
+
+Sitemap: https://anhnguvn.example.com/sitemap.xml
