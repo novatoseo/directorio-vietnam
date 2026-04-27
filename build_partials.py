@@ -22,9 +22,21 @@ def meta_head(title, description, canonical_path, og_image=None, noindex=False):
     og_img_path = og_image or SITE['og_image']
     abs_og = SITE['domain'].rstrip('/') + og_img_path if og_img_path.startswith('/') else og_img_path
     robots = '<meta name="robots" content="noindex,nofollow">' if noindex else '<meta name="robots" content="index,follow,max-image-preview:large">'
+    # GTM script — se mantiene fuera del f-string para no tener que escapar las llaves de JS
+    gtm_script = (
+        "  <!-- Google Tag Manager -->\n"
+        "  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n"
+        "  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n"
+        "  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\n"
+        "  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n"
+        "  })(window,document,'script','dataLayer','GTM-NKLFP824');</script>\n"
+        "  <!-- End Google Tag Manager -->"
+    )
     return f'''  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{gtm_script}
+  <meta name="google-site-verification" content="kuaIq8DDYo98l7mhePwrJ1jQHknPK9EJsbSI1rBrw78">
   <title>{title}</title>
   <meta name="description" content="{description}">
   <link rel="canonical" href="{abs_canonical}">
@@ -40,7 +52,7 @@ def meta_head(title, description, canonical_path, og_image=None, noindex=False):
   <meta name="twitter:title" content="{title}">
   <meta name="twitter:description" content="{description}">
   <meta name="twitter:image" content="{abs_og}">
-  <link rel="stylesheet" href="{{css_path}}styles.css">
+  <link rel="stylesheet" href="__CSSPATH__styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://lh3.googleusercontent.com">
@@ -50,7 +62,11 @@ def meta_head(title, description, canonical_path, og_image=None, noindex=False):
 def header_html(base='/'):
     """Header con rutas relativas. base es prefijo desde la página actual."""
     b = base
-    return f'''  <a class="announcement-bar" href="https://vanec.vn/english/" target="_blank" rel="noopener" data-action="announcement">
+    return f'''  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKLFP824"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <a class="announcement-bar" href="https://vanec.vn/english/" target="_blank" rel="noopener" data-action="announcement">
     <div class="container ann-inner">
       <span class="ann-pulse" aria-hidden="true"></span>
       <span class="ann-text">

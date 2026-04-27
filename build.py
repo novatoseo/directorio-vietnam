@@ -285,7 +285,7 @@ def build_ficha(center, data):
     schema_tags = '\n'.join(f'<script type="application/ld+json">{json.dumps(s, ensure_ascii=False)}</script>'
                             for s in schemas)
 
-    head = meta_head(title, description, canonical, og_image=og_image).format(css_path='../')
+    head = meta_head(title, description, canonical, og_image=og_image).replace('__CSSPATH__','../')
 
     body = f'''<!DOCTYPE html>
 <html lang="{SITE['lang']}">
@@ -471,7 +471,7 @@ def build_category(cat, data):
         ]
     }
 
-    head = meta_head(title, description, canonical).format(css_path='../')
+    head = meta_head(title, description, canonical).replace('__CSSPATH__','../')
 
     body = f'''<!DOCTYPE html>
 <html lang="{SITE['lang']}">
@@ -550,7 +550,7 @@ def build_category_index(data):
           <div class="cat-arrow" aria-hidden="true">→</div>
         </a>'''
 
-    head = meta_head(title, description, canonical).format(css_path='../')
+    head = meta_head(title, description, canonical).replace('__CSSPATH__','../')
 
     body = f'''<!DOCTYPE html>
 <html lang="{SITE['lang']}">
@@ -644,7 +644,7 @@ def build_city(city, data):
         ]
     }
 
-    head = meta_head(title, description, canonical).format(css_path='../')
+    head = meta_head(title, description, canonical).replace('__CSSPATH__','../')
     body = f'''<!DOCTYPE html>
 <html lang="{SITE['lang']}">
 <head>
@@ -749,7 +749,7 @@ def build_home(data):
     ]
     schema_tags = '\n'.join(f'<script type="application/ld+json">{json.dumps(s, ensure_ascii=False)}</script>' for s in schemas)
 
-    head = meta_head(title, description, canonical).format(css_path='')
+    head = meta_head(title, description, canonical).replace('__CSSPATH__','')
 
     body = f'''<!DOCTYPE html>
 <html lang="{SITE['lang']}">
@@ -930,7 +930,7 @@ def build_about_redirect():
 def build_404():
     head = meta_head('404 - Không tìm thấy trang',
                      'Trang bạn đang tìm không tồn tại. Quay lại trang chủ để khám phá danh bạ trung tâm Anh ngữ.',
-                     '/404.html', noindex=True).format(css_path='')
+                     '/404.html', noindex=True).replace('__CSSPATH__','')
     body = f'''<!DOCTYPE html>
 <html lang="{SITE['lang']}">
 <head>{head}</head>
@@ -958,7 +958,7 @@ def build_404():
 # ────────────────────────────────────────────────────────────────────
 def _static_page(slug, title, description, h1, body_html, canonical=None, noindex=False):
     canonical = canonical or f'/{slug}.html'
-    head = meta_head(title, description, canonical, noindex=noindex).format(css_path='')
+    head = meta_head(title, description, canonical, noindex=noindex).replace('__CSSPATH__','')
     html_body = f'''<!DOCTYPE html>
 <html lang="{SITE['lang']}">
 <head>
