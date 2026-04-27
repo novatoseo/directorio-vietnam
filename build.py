@@ -843,6 +843,7 @@ def build_sitemap(data):
     urls = [
         (SITE['domain']+'/', '1.0', 'weekly'),
         (SITE['domain']+'/danh-muc/', '0.9', 'weekly'),
+        (SITE['domain']+'/gioi-thieu.html', '0.5', 'yearly'),
         (SITE['domain']+'/them-trung-tam.html', '0.4', 'yearly'),
     ]
     for cat in data['categories']:
@@ -872,6 +873,58 @@ Sitemap: {SITE["domain"]}/sitemap.xml
 '''
     with open(os.path.join(OUT, 'robots.txt'), 'w', encoding='utf-8') as f:
         f.write(txt)
+
+
+def build_about():
+    body = '''
+      <p class="lead">Anh Ngữ Việt Nam là danh bạ trung tâm Anh ngữ độc lập, được tạo ra với mục tiêu giúp người học tại Việt Nam đưa ra quyết định sáng suốt khi chọn nơi học tiếng Anh.</p>
+
+      <h2>Tại sao chúng tôi tồn tại</h2>
+      <p>Thị trường trung tâm Anh ngữ tại Việt Nam rất lớn và đa dạng — từ các chuỗi quốc tế lâu đời đến các cơ sở địa phương chuyên biệt. Nhưng thông tin thường phân tán: mỗi trung tâm một website, đánh giá nằm rải rác trên Google Maps, Facebook và các diễn đàn. Việc so sánh trước khi quyết định trở nên khó khăn.</p>
+      <p>Chúng tôi tổng hợp dữ liệu công khai từ các nguồn uy tín — chủ yếu là Google Maps — và trình bày theo cách dễ so sánh: theo <a href="/danh-muc/">loại hình đào tạo</a>, theo <a href="/thanh-pho/ho-chi-minh.html">thành phố</a>, theo đánh giá học viên. Mục tiêu đơn giản: giúp bạn tiết kiệm thời gian.</p>
+
+      <h2>Dữ liệu đến từ đâu</h2>
+      <p>Thông tin về từng trung tâm — tên, địa chỉ, số điện thoại, website, ảnh đại diện, đánh giá và nhận xét — được lấy từ hồ sơ Google Business Profile công khai. Chúng tôi không tự tạo ra đánh giá, không chỉnh sửa nhận xét và không có mối quan hệ tài chính với bất kỳ trung tâm nào được liệt kê.</p>
+      <p>Điều này có nghĩa dữ liệu luôn phản ánh tình trạng thực tế trên Google. Khi một trung tâm nhận thêm đánh giá hoặc thay đổi thông tin trên Google, chúng tôi cập nhật định kỳ.</p>
+
+      <h2>Chúng tôi không làm gì</h2>
+      <ul>
+        <li><strong>Không xếp hạng trung tâm theo tiêu chí chủ quan.</strong> Thứ tự hiển thị dựa trên đánh giá và số lượng nhận xét từ Google — không phải quảng cáo.</li>
+        <li><strong>Không bán quảng cáo hiển thị.</strong> Trang web hoàn toàn miễn phí cho người dùng.</li>
+        <li><strong>Không thu thập thông tin cá nhân</strong> để bán cho bên thứ ba. Xem <a href="/chinh-sach-bao-mat.html">chính sách bảo mật</a>.</li>
+      </ul>
+
+      <h2>Liên hệ</h2>
+      <p>Nếu bạn là chủ sở hữu một trung tâm và cần cập nhật thông tin hoặc yêu cầu thêm/xóa hồ sơ, xem hướng dẫn tại <a href="/them-trung-tam.html">Thêm trung tâm vào danh bạ</a>.</p>
+      <p>Mọi góp ý khác: <a href="mailto:english@vanec.vn">english@vanec.vn</a></p>
+    '''
+    _static_page(
+        slug='gioi-thieu',
+        title='Giới thiệu về Anh Ngữ Việt Nam | Danh bạ trung tâm độc lập',
+        description='Anh Ngữ Việt Nam là danh bạ trung tâm Anh ngữ độc lập, tổng hợp dữ liệu công khai từ Google Maps. Chúng tôi tồn tại để giúp bạn chọn đúng nơi học.',
+        h1='Giới thiệu',
+        body_html=body,
+    )
+
+
+def build_about_redirect():
+    """Redirect 301 meta para la URL antigua /about.html -> /gioi-thieu.html"""
+    html = f'''<!DOCTYPE html>
+<html lang="{SITE['lang']}">
+<head>
+<meta charset="UTF-8">
+<title>Đang chuyển hướng...</title>
+<meta http-equiv="refresh" content="0; url=/gioi-thieu.html">
+<link rel="canonical" href="{SITE['domain']}/gioi-thieu.html">
+<meta name="robots" content="noindex,follow">
+</head>
+<body>
+<p>Trang này đã chuyển sang <a href="/gioi-thieu.html">/gioi-thieu.html</a>.</p>
+<script>window.location.replace("/gioi-thieu.html");</script>
+</body>
+</html>'''
+    with open(os.path.join(OUT, 'about.html'), 'w', encoding='utf-8') as f:
+        f.write(html)
 
 
 def build_404():
@@ -953,7 +1006,7 @@ def build_add_listing():
       </ul>
 
       <h2>Cách gửi yêu cầu</h2>
-      <p>Gửi email đến <a href="mailto:contact@anhnguvn.com">contact@anhnguvn.com</a> với thông tin sau:</p>
+      <p>Gửi email đến <a href="mailto:english@vanec.vn">english@vanec.vn</a> với thông tin sau:</p>
       <ul>
         <li>Tên đầy đủ của trung tâm</li>
         <li>Địa chỉ và thành phố</li>
@@ -1008,13 +1061,13 @@ def build_privacy():
       <p>Chúng tôi áp dụng các biện pháp bảo mật hợp lý để bảo vệ thông tin. Tuy nhiên, không có hệ thống truyền dữ liệu qua internet nào là an toàn tuyệt đối.</p>
 
       <h2>6. Quyền của bạn</h2>
-      <p>Bạn có quyền yêu cầu xem, chỉnh sửa hoặc xóa thông tin cá nhân chúng tôi lưu trữ về bạn. Gửi yêu cầu đến <a href="mailto:privacy@anhnguvn.com">privacy@anhnguvn.com</a>.</p>
+      <p>Bạn có quyền yêu cầu xem, chỉnh sửa hoặc xóa thông tin cá nhân chúng tôi lưu trữ về bạn. Gửi yêu cầu đến <a href="mailto:english@vanec.vn">english@vanec.vn</a>.</p>
 
       <h2>7. Thay đổi chính sách</h2>
       <p>Chúng tôi có thể cập nhật chính sách này theo thời gian. Ngày cập nhật sẽ được ghi rõ ở đầu trang.</p>
 
       <h2>8. Liên hệ</h2>
-      <p>Mọi câu hỏi về chính sách bảo mật, vui lòng liên hệ: <a href="mailto:contact@anhnguvn.com">contact@anhnguvn.com</a></p>
+      <p>Mọi câu hỏi về chính sách bảo mật, vui lòng liên hệ: <a href="mailto:english@vanec.vn">english@vanec.vn</a></p>
     '''
     _static_page(
         slug='chinh-sach-bao-mat',
@@ -1053,7 +1106,7 @@ def build_terms():
       <p>Trang web chứa liên kết đến các website của trung tâm và Google Maps. Chúng tôi không kiểm soát và không chịu trách nhiệm về nội dung của các trang web bên ngoài.</p>
 
       <h2>8. Yêu cầu xóa/chỉnh sửa</h2>
-      <p>Nếu bạn là chủ sở hữu một trung tâm được liệt kê và muốn yêu cầu xóa hoặc chỉnh sửa thông tin, vui lòng gửi email đến <a href="mailto:contact@anhnguvn.com">contact@anhnguvn.com</a>. Chúng tôi sẽ xử lý yêu cầu trong vòng 5 ngày làm việc.</p>
+      <p>Nếu bạn là chủ sở hữu một trung tâm được liệt kê và muốn yêu cầu xóa hoặc chỉnh sửa thông tin, vui lòng gửi email đến <a href="mailto:english@vanec.vn">english@vanec.vn</a>. Chúng tôi sẽ xử lý yêu cầu trong vòng 5 ngày làm việc.</p>
 
       <h2>9. Thay đổi điều khoản</h2>
       <p>Chúng tôi có quyền cập nhật điều khoản này bất kỳ lúc nào. Việc tiếp tục sử dụng trang web sau khi điều khoản được cập nhật đồng nghĩa với việc chấp nhận thay đổi.</p>
@@ -1105,6 +1158,8 @@ def main():
     build_sitemap(data); print('  ✓ sitemap.xml')
     build_robots(); print('  ✓ robots.txt')
     build_404(); print('  ✓ 404.html')
+    build_about(); print('  ✓ gioi-thieu.html')
+    build_about_redirect(); print('  ✓ about.html (redirect)')
     build_add_listing(); print('  ✓ them-trung-tam.html')
     build_privacy(); print('  ✓ chinh-sach-bao-mat.html')
     build_terms(); print('  ✓ dieu-khoan.html')

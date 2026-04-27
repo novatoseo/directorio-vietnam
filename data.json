@@ -11,8 +11,8 @@
     "avg_rating": 4.8
   },
   "popup": {
-    "academy_name": "[Tên Academy của bạn]",
-    "academy_url": "#",
+    "academy_name": "VANEC English",
+    "academy_url": "https://vanec.vn/english/",
     "academy_logo": "",
     "specialty": "Tiếng Anh chuyên ngành Nhà hàng - Khách sạn",
     "entry": {
@@ -22,7 +22,7 @@
       "subtitle": "Đừng để rào cản ngôn ngữ cản bước sự nghiệp của bạn",
       "body": "Khách quốc tế tại Việt Nam tăng <strong>40% mỗi năm</strong>. Nhân viên thông thạo tiếng Anh được trả lương cao hơn và thăng tiến nhanh hơn. Khóa học của chúng tôi được thiết kế <strong>riêng cho ngành dịch vụ</strong> — thực hành ngay, áp dụng ngay.",
       "cta_text": "Tìm hiểu khóa học →",
-      "cta_url": "#",
+      "cta_url": "https://vanec.vn/english/",
       "dismiss_text": "Để sau"
     },
     "exit": {
@@ -31,7 +31,7 @@
       "subtitle": "Tài liệu tiếng Anh nhà hàng <strong>MIỄN PHÍ</strong>",
       "body": "50 mẫu câu giao tiếp với khách quốc tế — chào đón, gọi món, xử lý phàn nàn, thanh toán. <strong>Tải ngay, dùng ngay.</strong>",
       "cta_text": "Nhận miễn phí →",
-      "cta_url": "#",
+      "cta_url": "https://vanec.vn/english/",
       "dismiss_text": "Không, cảm ơn"
     }
   },

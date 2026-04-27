@@ -8,7 +8,7 @@ from urllib.parse import quote
 # Config del sitio — el único sitio donde editar dominio, nombres, etc.
 # ────────────────────────────────────────────────────────────────────
 SITE = {
-    'domain':  'https://anhnguvn.example.com',  # cambiar al dominio real al desplegar
+    'domain':  'https://anhnguvn.com',
     'name':    'Anh Ngữ Việt Nam',
     'slogan':  'Danh bạ trung tâm Anh ngữ hàng đầu 2026',
     'lang':    'vi',
@@ -50,7 +50,17 @@ def meta_head(title, description, canonical_path, og_image=None, noindex=False):
 def header_html(base='/'):
     """Header con rutas relativas. base es prefijo desde la página actual."""
     b = base
-    return f'''  <header id="siteHeader">
+    return f'''  <a class="announcement-bar" href="https://vanec.vn/english/" target="_blank" rel="noopener" data-action="announcement">
+    <div class="container ann-inner">
+      <span class="ann-pulse" aria-hidden="true"></span>
+      <span class="ann-text">
+        <strong>Làm nhà hàng — khách sạn mà tiếng Anh còn ngập ngừng?</strong>
+        <span class="ann-sub">Khóa học chuyên ngành dịch vụ của <strong>VANEC English</strong> — học là dùng được ngay với khách quốc tế</span>
+      </span>
+      <span class="ann-cta">Tìm hiểu ngay <span aria-hidden="true">→</span></span>
+    </div>
+  </a>
+  <header id="siteHeader">
     <div class="container header-inner">
       <a href="{b}" class="logo" aria-label="{SITE['name']} - Trang chủ">
         <span class="logo-mark" aria-hidden="true">AN</span>
@@ -94,6 +104,7 @@ def footer_html(base='/'):
             <h4>Điều hướng</h4>
             <a href="{b}">Trang chủ</a>
             <a href="{b}danh-muc/">Tất cả danh mục</a>
+            <a href="{b}gioi-thieu.html">Giới thiệu</a>
             <a href="{b}them-trung-tam.html">Thêm trung tâm</a>
           </div>
           <div class="footer-col">
